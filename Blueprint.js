@@ -1664,8 +1664,8 @@
                         if (!downAt) {
                             return;
                         }
-                        downAt[0]-=10;
-                        downAt[1]-=10;
+                        downAt[0]-=2;
+                        downAt[1]-=2;
                         console.log("AfterBlueJsPrintPlumb",downAt,e);
                         this.mark(true);
                         moving = true;
