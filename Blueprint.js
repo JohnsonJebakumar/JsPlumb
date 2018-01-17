@@ -1665,6 +1665,7 @@
                         if (!downAt) {
                             return;
                         }
+                        downAt = _pl(e);
                         this.mark(true);
                         moving = true;
                     } else {
