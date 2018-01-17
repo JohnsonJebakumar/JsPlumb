@@ -1665,7 +1665,7 @@
                             return;
                         }
                         downAt = _pl(e);
-                        console.log("AfterBlueJsPrintPlumb",downAt);
+                        console.log("AfterBlueJsPrintPlumb",downAt,e);
                         this.mark(true);
                         moving = true;
                     } else {
