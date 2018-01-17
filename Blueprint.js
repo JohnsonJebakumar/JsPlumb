@@ -1660,12 +1660,12 @@
                 if (!moving) {
                     console.log("BeforeBlueJsPrintPlumb",downAt);
                     var _continue = _dispatch("start", {el:this.el, pos:posAtDown, e:e, drag:this});
-                    console.log("AfterBlueJsPrintPlumb",downAt);
                     if (_continue !== false) {
                         if (!downAt) {
                             return;
                         }
                         downAt = _pl(e);
+                        console.log("AfterBlueJsPrintPlumb",downAt);
                         this.mark(true);
                         moving = true;
                     } else {
