@@ -1659,6 +1659,7 @@
             if (downAt) {
                 if (!moving) {
                     var _continue = _dispatch("start", {el:this.el, pos:posAtDown, e:e, drag:this});
+                    console.log("BlueJsPrintPlumb",downAt);
                     if (_continue !== false) {
                         if (!downAt) {
                             return;
