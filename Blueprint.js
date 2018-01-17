@@ -1658,7 +1658,7 @@
         this.moveListener = function(e) {
             if (downAt) {
                 if (!moving) {
-                    console.log("BeforeBlueJsPrintPlumb");
+                    console.log("BeforeBlueJsPrintPlumb",downAt);
                     var _continue = _dispatch("start", {el:this.el, pos:posAtDown, e:e, drag:this});
                     console.log("AfterBlueJsPrintPlumb",downAt);
                     if (_continue !== false) {
