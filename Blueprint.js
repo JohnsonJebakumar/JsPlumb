@@ -1683,8 +1683,8 @@
                     dx /= z;
                     dy /= z;
                     this.moveBy(dx, dy, e);
-                    //k.updateSelection(dx, dy, this);
-                    //k.updatePosses(dx, dy, this);
+                    k.updateSelection(dx, dy, this);
+                    k.updatePosses(dx, dy, this);
                 }
             }
         }.bind(this);
@@ -1887,7 +1887,7 @@
                 }
             }
 
-            _dispatch("drag", {el:this.el, pos:cPos, e:e, drag:this});
+            //_dispatch("drag", {el:this.el, pos:cPos, e:e, drag:this});
 
             /* test to see if the parent needs to be scrolled (future)
              if (scroll) {
