@@ -1474,6 +1474,7 @@
     var FALSE = function() { return false; };
 
     var Drag = function(el, params, css, scope) {
+        console.log(el,params);
         this._class = css.draggable;
         var k = Super.apply(this, arguments);
         this.rightButtonCanDrag = this.params.rightButtonCanDrag;
@@ -1887,7 +1888,7 @@
                 }
             }
 
-            //_dispatch("drag", {el:this.el, pos:cPos, e:e, drag:this});
+            _dispatch("drag", {el:this.el, pos:cPos, e:e, drag:this});
 
             /* test to see if the parent needs to be scrolled (future)
              if (scroll) {
