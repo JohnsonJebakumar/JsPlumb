@@ -1682,9 +1682,9 @@
                         z = this.params.ignoreZoom ? 1 : k.getZoom();
                     dx /= z;
                     dy /= z;
-                    //this.moveBy(dx, dy, e);
-                    k.updateSelection(dx, dy, this);
-                    k.updatePosses(dx, dy, this);
+                    this.moveBy(dx, dy, e);
+                    //k.updateSelection(dx, dy, this);
+                    //k.updatePosses(dx, dy, this);
                 }
             }
         }.bind(this);
