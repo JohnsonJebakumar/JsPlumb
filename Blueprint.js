@@ -1474,7 +1474,6 @@
     var FALSE = function() { return false; };
 
     var Drag = function(el, params, css, scope) {
-        console.log(el,params);
         this._class = css.draggable;
         var k = Super.apply(this, arguments);
         this.rightButtonCanDrag = this.params.rightButtonCanDrag;
@@ -1732,7 +1731,7 @@
         if (params.events.start) listeners.start.push(params.events.start);
         if (params.events.beforeStart) listeners.beforeStart.push(params.events.beforeStart);
         if (params.events.stop) listeners.stop.push(params.events.stop);
-        if (params.events.drag) listeners.drag.push(params.events.drag);
+        if (params.events.drag) {listeners.drag.push(params.events.drag);console.log("CheckCheck",listeners)};
         if (params.events.revert) listeners.revert.push(params.events.revert);
 
         this.on = function(evt, fn) {
