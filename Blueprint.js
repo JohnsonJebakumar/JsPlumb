@@ -14280,6 +14280,7 @@
     });
 
     _jp.Overlays.svg.Arrow = function () {
+        console.log("MaNith",_jp);
         AbstractSvgArrowOverlay.apply(this, [_jp.Overlays.Arrow, arguments]);
     };
     _ju.extend(_jp.Overlays.svg.Arrow, [ _jp.Overlays.Arrow, AbstractSvgArrowOverlay ]);
