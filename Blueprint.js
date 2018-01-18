@@ -13890,6 +13890,7 @@
      * Base class for SVG components.
      */
     var SvgComponent = function (params) {
+        console.log("paramssss",params);
         var pointerEventsSpec = params.pointerEventsSpec || "all", renderer = {};
 
         _jp.jsPlumbUIComponent.apply(this, params.originalArgs);
@@ -14280,7 +14281,6 @@
     });
 
     _jp.Overlays.svg.Arrow = function () {
-        console.log("MaNith",_jp);
         AbstractSvgArrowOverlay.apply(this, [_jp.Overlays.Arrow, arguments]);
     };
     _ju.extend(_jp.Overlays.svg.Arrow, [ _jp.Overlays.Arrow, AbstractSvgArrowOverlay ]);
