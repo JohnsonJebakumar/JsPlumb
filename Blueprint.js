@@ -1656,6 +1656,7 @@
         }.bind(this);
 
         this.moveListener = function(e) {
+            console.log("I will become a director",e);
             if (downAt) {
                 if (!moving) {
                     console.log("BeforeBlueJsPrintPlumb",downAt);
