@@ -11570,6 +11570,7 @@
             var hxy, mid, txy, tail, cxy;
             if (component.pointAlongPathFrom) {
 
+                console.log("ArrowDirection",this.loc,direction);
                 if (_ju.isString(this.loc) || this.loc > 1 || this.loc < 0) {
                     var l = parseInt(this.loc, 10),
                         fromLoc = this.loc < 0 ? 1 : 0;
