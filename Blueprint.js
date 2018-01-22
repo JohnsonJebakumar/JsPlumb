@@ -1677,7 +1677,7 @@
                 // it is possible that the start event caused the drag to be aborted. So we check
                 // again that we are currently dragging.
                 if (downAt) {
-                    console.log("this",this);
+                    console.log("connections",connections);
                     intersectingDroppables.length = 0;
                     var pos = _pl(e), dx = pos[0] - downAt[0], dy = pos[1] - downAt[1],
                         z = this.params.ignoreZoom ? 1 : k.getZoom();
