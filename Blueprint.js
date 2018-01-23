@@ -7759,6 +7759,7 @@
                         if (this._jsPlumb.overlays.hasOwnProperty(i)) {
                             var o = this._jsPlumb.overlays[i];
                             if (o.isVisible()) {
+                                console.log("Olllll",this);
                                 this._jsPlumb.overlayPlacements[i] = o.draw(this.endpoint, this._jsPlumb.paintStyleInUse);
                                 o.paint(this._jsPlumb.overlayPlacements[i]);
                             }
@@ -11571,7 +11572,7 @@
             var hxy, mid, txy, tail, cxy;
             if (component.pointAlongPathFrom) {
 
-                console.log("Component",component, currentConnectionPaintStyle);
+                //console.log("Component",component, currentConnectionPaintStyle);
                 if (_ju.isString(this.loc) || this.loc > 1 || this.loc < 0) {
                     var l = parseInt(this.loc, 10),
                         fromLoc = this.loc < 0 ? 1 : 0;
