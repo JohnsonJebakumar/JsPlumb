@@ -1677,7 +1677,6 @@
                 // it is possible that the start event caused the drag to be aborted. So we check
                 // again that we are currently dragging.
                 if (downAt) {
-                    console.log("connections",connections);
                     intersectingDroppables.length = 0;
                     var pos = _pl(e), dx = pos[0] - downAt[0], dy = pos[1] - downAt[1],
                         z = this.params.ignoreZoom ? 1 : k.getZoom();
@@ -11571,7 +11570,7 @@
             var hxy, mid, txy, tail, cxy;
             if (component.pointAlongPathFrom) {
 
-                console.log("ArrowDirection",this.loc,direction);
+                console.log("Component",component, currentConnectionPaintStyle);
                 if (_ju.isString(this.loc) || this.loc > 1 || this.loc < 0) {
                     var l = parseInt(this.loc, 10),
                         fromLoc = this.loc < 0 ? 1 : 0;
