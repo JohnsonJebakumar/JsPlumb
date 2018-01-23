@@ -9120,6 +9120,7 @@
                         if (this._jsPlumb.overlays.hasOwnProperty(i)) {
                             var o = this._jsPlumb.overlays[i];
                             if (o.isVisible()) {
+                                console.log("this",this);
                                 this._jsPlumb.overlayPlacements[i] = o.draw(this.connector, this._jsPlumb.paintStyleInUse, this.getAbsoluteOverlayPosition(o));
                                 overlayExtents.minX = Math.min(overlayExtents.minX, this._jsPlumb.overlayPlacements[i].minX);
                                 overlayExtents.maxX = Math.max(overlayExtents.maxX, this._jsPlumb.overlayPlacements[i].maxX);
@@ -11571,7 +11572,7 @@
 
             var hxy, mid, txy, tail, cxy;
             if (component.pointAlongPathFrom) {
-
+                console.log(window.location);draw
                 //console.log("Component",component, currentConnectionPaintStyle);
                 if (_ju.isString(this.loc) || this.loc > 1 || this.loc < 0) {
                     var l = parseInt(this.loc, 10),
