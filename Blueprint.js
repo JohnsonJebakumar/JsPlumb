@@ -9119,7 +9119,6 @@
                         if (this._jsPlumb.overlays.hasOwnProperty(i)) {
                             var o = this._jsPlumb.overlays[i];
                             if (o.isVisible()) {
-                                console.log("this",this);
                                 this._jsPlumb.overlayPlacements[i] = o.draw(this.connector, this._jsPlumb.paintStyleInUse, this.getAbsoluteOverlayPosition(o));
                                 overlayExtents.minX = Math.min(overlayExtents.minX, this._jsPlumb.overlayPlacements[i].minX);
                                 overlayExtents.maxX = Math.max(overlayExtents.maxX, this._jsPlumb.overlayPlacements[i].maxX);
