@@ -7759,7 +7759,6 @@
                         if (this._jsPlumb.overlays.hasOwnProperty(i)) {
                             var o = this._jsPlumb.overlays[i];
                             if (o.isVisible()) {
-                                console.log("Olllll",this);
                                 this._jsPlumb.overlayPlacements[i] = o.draw(this.endpoint, this._jsPlumb.paintStyleInUse);
                                 o.paint(this._jsPlumb.overlayPlacements[i]);
                             }
