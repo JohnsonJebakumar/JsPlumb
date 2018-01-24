@@ -1864,7 +1864,7 @@ var currentSvgPath;
             return checkArray;
         }
         this.moveBy = function(dx, dy, e) {
-            if (currentSvgPath)
+            if (currentSvgPath.children)
             {
                 var poss=this.arrowDirection(currentSvgPath);
                 console.log("currentSvgPath",poss);
