@@ -1841,8 +1841,27 @@ var currentSvgPath;
         };
         this.arrowDirection=function(svg)
         {
-            var arrowPath=svg.children[1].d;
-            return arrowPath;
+            var arrowPath=svg.children[1].getAttribute("d");
+            var splitArrowPath=arrowPath.split(" L");
+            splitArrowPath[0]=splitArrowPath[0].split("M")[1];
+            var checkArray=[];
+            for (var i=0;i<3;i+=2)
+            {
+                var a=splitArrowPath[i].split(",");
+                var b=splitArrowPath[i+1].split(",");
+                for (var j=0;j<2;j++)
+                {
+                    if (parseInt(a[j])<parseInt(b[j]))
+                    {
+                        checkArray.push("Increase");
+                    }
+                    else
+                    {
+                        checkArray.push("Decrease");
+                    }
+                }
+            }
+            return checkArray;
         }
         this.moveBy = function(dx, dy, e) {
             if (currentSvgPath)
