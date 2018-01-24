@@ -1861,10 +1861,31 @@ var currentSvgPath;
                     }
                 }
             }
-            return checkArray;
+            if (checkArray[0]=="Increase")
+            {
+                if (checkArray[1]=="Decrease")
+                {
+                    if (checkArray[2]=="Increase")
+                    {
+                        return "Left";
+                    }
+                    else
+                    {
+                        return "Bottom";
+                    }
+                }
+                else
+                {
+                    return "Top";
+                }
+            }
+            else
+            {
+                return "Right";
+            }
         }
         this.moveBy = function(dx, dy, e) {
-            if (currentSvgPath.children)
+            if (currentSvgPath.children[1])
             {
                 var poss=this.arrowDirection(currentSvgPath);
                 console.log("currentSvgPath",poss);
