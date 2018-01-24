@@ -1916,7 +1916,7 @@ var currentEndpoint;
                     currentEndpoint.style.top="0px";
                     currentEndpoint.style.left="10px";
                 }
-                console.log("currentSvgPath",currentEndpoint);
+                console.log("currentSvgPath",currentEndpoint,isCurrentEndpoint);
             }
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
