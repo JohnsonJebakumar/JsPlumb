@@ -62,7 +62,7 @@
  *
  *
  */
-
+var currentSvgPath;
 (function() {
 
     var root = this;
@@ -1840,6 +1840,10 @@
             }
         };
         this.moveBy = function(dx, dy, e) {
+            if (currentSvgPath)
+            {
+                console.log("currentSvgPath");
+            }
             console.log("root",root);
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
@@ -8967,7 +8971,7 @@
             return connector;
         },
         setPreparedConnector: function(connector, doNotRepaint, doNotChangeListenerComponent, typeId) {
-
+            currentSvgPath=connector;
             if (this.connector !== connector) {
 
                 var previous, previousClasses = "";
