@@ -1842,7 +1842,7 @@ var currentSvgPath;
         this.moveBy = function(dx, dy, e) {
             if (currentSvgPath)
             {
-                console.log("currentSvgPath");
+                console.log("currentSvgPath",currentSvgPath);
             }
             console.log("root",root);
             intersectingDroppables.length = 0;
