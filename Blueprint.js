@@ -1839,10 +1839,15 @@ var currentSvgPath;
                 }
             }
         };
+        this.arrowDirection=function(svg)
+        {
+            return svg;
+        }
         this.moveBy = function(dx, dy, e) {
             if (currentSvgPath)
             {
-                console.log("currentSvgPath",currentSvgPath);
+                var poss=this.arrowDirection(currentSvgPath);
+                console.log("currentSvgPath",poss);
             }
             console.log("root",root);
             intersectingDroppables.length = 0;
@@ -8971,7 +8976,7 @@ var currentSvgPath;
             return connector;
         },
         setPreparedConnector: function(connector, doNotRepaint, doNotChangeListenerComponent, typeId) {
-            currentSvgPath=connector;
+            currentSvgPath=connector.canvas;
             if (this.connector !== connector) {
 
                 var previous, previousClasses = "";
