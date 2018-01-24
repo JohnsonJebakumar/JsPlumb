@@ -1898,21 +1898,25 @@ var currentEndpoint;
                 var poss=this.arrowDirection(currentSvgPath);
                 if (poss=="Top")
                 {
+                    currentEndpoint.style.left="0px";
                     currentEndpoint.style.top="10px";
                 }
                 else if (poss=="Bottom")
                 {
+                    currentEndpoint.style.left="0px";
                     currentEndpoint.style.top="-10px";
                 }
                 else if (poss=="Right")
                 {
+                    currentEndpoint.style.top="0px";
                     currentEndpoint.style.left="-10px";
                 }
                 else if (poss=="Left")
                 {
+                    currentEndpoint.style.top="0px";
                     currentEndpoint.style.left="10px";
                 }
-                console.log("currentSvgPath",poss);
+                console.log("currentSvgPath",currentEndpoint);
             }
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
