@@ -1841,7 +1841,8 @@ var currentSvgPath;
         };
         this.arrowDirection=function(svg)
         {
-            return svg;
+            var arrowPath=svg.children[1].d;
+            return arrowPath;
         }
         this.moveBy = function(dx, dy, e) {
             if (currentSvgPath)
@@ -1849,7 +1850,6 @@ var currentSvgPath;
                 var poss=this.arrowDirection(currentSvgPath);
                 console.log("currentSvgPath",poss);
             }
-            console.log("root",root);
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
                 cPos = constrain(desiredLoc, dragEl);
