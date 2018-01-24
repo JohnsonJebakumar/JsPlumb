@@ -63,6 +63,8 @@
  *
  */
 var currentSvgPath;
+var isCurrentEndpoint;
+var currentEndpoint;
 (function() {
 
     var root = this;
@@ -1622,6 +1624,7 @@ var currentSvgPath;
             matchingDroppables = [], intersectingDroppables = [];
 
         this.downListener = function(e) {
+            isCurrentEndpoint=true;
             var isNotRightClick = this.rightButtonCanDrag || (e.which !== 3 && e.button !== 2);
             if (isNotRightClick && this.isEnabled() && this.canDrag()) {
                 var _f =  _testFilter(e) && _inputFilter(e, this.el, this.k);
@@ -1885,24 +1888,29 @@ var currentSvgPath;
             }
         }
         this.moveBy = function(dx, dy, e) {
+            if (isCurrentEndpoint)
+            {
+                currentEndpoint=e.target.parentElement;
+                isCurrentEndpoint=false;
+            }
             if (currentSvgPath.children[1])
             {
                 var poss=this.arrowDirection(currentSvgPath);
                 if (poss=="Top")
                 {
-                    e.target.parentElement.style.top="10px";
+                    currentEndpoint.style.top="10px";
                 }
                 else if (poss=="Bottom")
                 {
-                    e.target.parentElement.style.top="-10px";
+                    currentEndpoint.style.top="-10px";
                 }
                 else if (poss=="Right")
                 {
-                    e.target.parentElement.style.left="-10px";
+                    currentEndpoint.style.left="-10px";
                 }
                 else if (poss=="Left")
                 {
-                    e.target.parentElement.style.left="10px";
+                    currentEndpoint.style.left="10px";
                 }
                 console.log("currentSvgPath",poss);
             }
