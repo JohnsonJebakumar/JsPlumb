@@ -1840,6 +1840,7 @@
             }
         };
         this.moveBy = function(dx, dy, e) {
+            console.log("root",root);
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
                 cPos = constrain(desiredLoc, dragEl);
