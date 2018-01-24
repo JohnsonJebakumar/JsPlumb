@@ -1890,19 +1890,19 @@ var currentSvgPath;
                 var poss=this.arrowDirection(currentSvgPath);
                 if (poss=="Top")
                 {
-                    e.parentElement.style.top="10px";
+                    e.target.parentElement.style.top="10px";
                 }
                 else if (poss=="Bottom")
                 {
-                    e.parentElement.style.top="-10px";
+                    e.target.parentElement.style.top="-10px";
                 }
                 else if (poss=="Right")
                 {
-                    e.parentElement.style.left="-10px";
+                    e.target.parentElement.style.left="-10px";
                 }
                 else if (poss=="Left")
                 {
-                    e.parentElement.style.left="10px";
+                    e.target.parentElement.style.left="10px";
                 }
                 console.log("currentSvgPath",poss);
             }
