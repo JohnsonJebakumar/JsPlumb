@@ -1658,15 +1658,11 @@
         this.moveListener = function(e) {
             if (downAt) {
                 if (!moving) {
-                    console.log("BeforeBlueJsPrintPlumb",downAt);
                     var _continue = _dispatch("start", {el:this.el, pos:posAtDown, e:e, drag:this});
                     if (_continue !== false) {
                         if (!downAt) {
                             return;
                         }
-                        downAt[0]-=2;
-                        downAt[1]-=2;
-                        console.log("AfterBlueJsPrintPlumb",downAt,e);
                         this.mark(true);
                         moving = true;
                     } else {
@@ -1731,7 +1727,7 @@
         if (params.events.start) listeners.start.push(params.events.start);
         if (params.events.beforeStart) listeners.beforeStart.push(params.events.beforeStart);
         if (params.events.stop) listeners.stop.push(params.events.stop);
-        if (params.events.drag) {listeners.drag.push(params.events.drag);
+        if (params.events.drag) listeners.drag.push(params.events.drag);
         if (params.events.revert) listeners.revert.push(params.events.revert);
 
         this.on = function(evt, fn) {
@@ -1844,7 +1840,6 @@
             }
         };
         this.moveBy = function(dx, dy, e) {
-            console.log("hellooooooo",root.jsPlumb);
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
                 cPos = constrain(desiredLoc, dragEl);
@@ -2463,18 +2458,12 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb
- *
- * Title:jsPlumb 2.3.0
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
  * This file contains utility functions that run in both browsers and headless.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
- * http://jsplumbtoolkit.com
- * http://github.com/sporritt/jsplumb
+ * https://jsplumbtoolkit.com
+ * https://github.com/jsplumb/jsplumb
  *
  * Dual licensed under the MIT and GPL2 licenses.
  */
@@ -2994,13 +2983,9 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
  * This file contains utility functions that run in browsers only.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -3063,19 +3048,13 @@
  }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb
- * 
- * Title:jsPlumb 2.3.0
- * 
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the core code.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
- * 
- * http://jsplumbtoolkit.com
- * http://github.com/sporritt/jsplumb
- * 
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
+ *
+ * https://jsplumbtoolkit.com
+ * https://github.com/jsplumb/jsplumb
+ *
  * Dual licensed under the MIT and GPL2 licenses.
  */
 (function () {
@@ -3083,7 +3062,6 @@
     "use strict";
 
     var root = this;
-    var connectorTypes = [], rendererTypes;
 
     var _ju = root.jsPlumbUtil,
 
@@ -3535,7 +3513,7 @@
 
     var jsPlumbInstance = root.jsPlumbInstance = function (_defaults) {
 
-        this.version = "2.5.13";
+        this.version = "2.6.0";
 
         if (_defaults) {
             jsPlumb.extend(this.Defaults, _defaults);
@@ -5053,10 +5031,10 @@
         // exposed for other objects to use to get a unique id.
         this.idstamp = _idstamp;
 
-        this.connectorsInitialized = false;
-        this.registerConnectorType = function (connector, name) {
-            connectorTypes.push([connector, name]);
-        };
+        // this.connectorsInitialized = false;
+        // this.registerConnectorType = function (connector, name) {
+        //     connectorTypes.push([connector, name]);
+        // };
 
         // ensure that, if the current container exists, it is a DOM element and not a selector.
         // if it does not exist and `candidate` is supplied, the offset parent of that element will be set as the Container.
@@ -5159,26 +5137,6 @@
          * mouse listeners etc; can't do that until the library has provided a bind method)
          */
         this.init = function () {
-            rendererTypes = root.jsPlumb.getRenderModes();
-
-            var _oneType = function (renderer, name, fn) {
-                root.jsPlumb.Connectors[renderer][name] = function () {
-                    fn.apply(this, arguments);
-                    root.jsPlumb.ConnectorRenderers[renderer].apply(this, arguments);
-                };
-                _ju.extend(root.jsPlumb.Connectors[renderer][name], [ fn, root.jsPlumb.ConnectorRenderers[renderer]]);
-            };
-
-            if (!root.jsPlumb.connectorsInitialized) {
-                for (var i = 0; i < connectorTypes.length; i++) {
-                    for (var j = 0; j < rendererTypes.length; j++) {
-                        _oneType(rendererTypes[j], connectorTypes[i][1], connectorTypes[i][0]);
-                    }
-
-                }
-                root.jsPlumb.connectorsInitialized = true;
-            }
-
             if (!initialized) {
                 _getContainerFromDefaults();
                 _currentInstance.anchorManager = new root.jsPlumb.AnchorManager({jsPlumbInstance: _currentInstance});
@@ -6421,13 +6379,9 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
  * This file contains the base functionality for DOM type adapters.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -7022,13 +6976,7 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
- * This file contains code for components that support overlays.
- *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -7314,13 +7262,9 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- * 
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the code for Endpoints.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  * 
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -8597,17 +8541,13 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- * 
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the code for Connections.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
- * 
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
+ *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
- * 
+ *
  * Dual licensed under the MIT and GPL2 licenses.
  */
 ;
@@ -9225,17 +9165,13 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- * 
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the code for creating and manipulating anchors.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
- * 
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
+ *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
- * 
+ *
  * Dual licensed under the MIT and GPL2 licenses.
  */
 ;
@@ -10448,13 +10384,9 @@
     };
 }).call(typeof window !== 'undefined' ? window : this);
 /*
- * jsPlumb Community Edition
- * 
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the default Connectors, Endpoint and Overlay definitions.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  * 
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -11570,7 +11502,7 @@
 
             var hxy, mid, txy, tail, cxy;
             if (component.pointAlongPathFrom) {
-                //console.log("Component",component, currentConnectionPaintStyle);
+
                 if (_ju.isString(this.loc) || this.loc > 1 || this.loc < 0) {
                     var l = parseInt(this.loc, 10),
                         fromLoc = this.loc < 0 ? 1 : 0;
@@ -12001,13 +11933,9 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
  * This file contains the base class for library adapters.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -12049,13 +11977,7 @@
 
 }).call(typeof window !== 'undefined' ? window : this);
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
- * This file contains the code for working with Groups.
- *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -12915,17 +12837,13 @@
 
 
 /*
- * jsPlumb Community Edition
- * 
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the 'flowchart' connectors, consisting of vertical and horizontal line segments.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
- * 
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
+ *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
- * 
+ *
  * Dual licensed under the MIT and GPL2 licenses.
  */
 ;
@@ -13297,22 +13215,18 @@
         };
     };
 
-    _ju.extend(Flowchart, _jp.Connectors.AbstractConnector);
-    _jp.registerConnectorType(Flowchart, "Flowchart");
+    _jp.Connectors.Flowchart = Flowchart;
+    _ju.extend(_jp.Connectors.Flowchart, _jp.Connectors.AbstractConnector);
 
 }).call(typeof window !== 'undefined' ? window : this);
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
  * This file contains the code for the Bezier connector type.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
- * 
+ *
  * Dual licensed under the MIT and GPL2 licenses.
  */
 ;
@@ -13467,18 +13381,14 @@
 
     };
 
+    _jp.Connectors.Bezier = Bezier;
     _ju.extend(Bezier, _jp.Connectors.AbstractBezierConnector);
-    _jp.registerConnectorType(Bezier, "Bezier");
 
 }).call(typeof window !== 'undefined' ? window : this);
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
  * This file contains the state machine connectors, which extend AbstractBezierConnector.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -13682,18 +13592,14 @@
         };
     };
 
+    _jp.Connectors.StateMachine = StateMachine;
     _ju.extend(StateMachine, _jp.Connectors.AbstractBezierConnector);
-    _jp.registerConnectorType(StateMachine, "StateMachine");
 
 }).call(typeof window !== 'undefined' ? window : this);
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- *
  * This file contains the 'flowchart' connectors, consisting of vertical and horizontal line segments.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  *
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -13718,18 +13624,14 @@
         };
     };
 
+    _jp.Connectors.Straight = Straight;
     _ju.extend(Straight, _jp.Connectors.AbstractConnector);
-    _jp.registerConnectorType(Straight, STRAIGHT);
 
 }).call(typeof window !== 'undefined' ? window : this);
 /*
- * jsPlumb Community Edition
- * 
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the SVG renderers.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  * 
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
@@ -13891,7 +13793,6 @@
      * Base class for SVG components.
      */
     var SvgComponent = function (params) {
-        console.log("paramssss",params);
         var pointerEventsSpec = params.pointerEventsSpec || "all", renderer = {};
 
         _jp.jsPlumbUIComponent.apply(this, params.originalArgs);
@@ -14186,6 +14087,43 @@
     };
     _ju.extend(_jp.Endpoints.svg.Rectangle, [_jp.Endpoints.Rectangle, SvgEndpoint]);
 
+// ---------------------------------- Connectors ------------------------------------------------------------
+
+
+    _jp.Connectors.svg.Flowchart = function() {
+        _jp.Connectors.Flowchart.apply(this, arguments);
+        _jp.ConnectorRenderers.svg.apply(this, arguments);
+    };
+
+    _ju.extend(_jp.Connectors.svg.Flowchart, [ _jp.Connectors.Flowchart, _jp.ConnectorRenderers.svg]);
+
+
+
+    _jp.Connectors.svg.Bezier = function() {
+        _jp.Connectors.Bezier.apply(this, arguments);
+        _jp.ConnectorRenderers.svg.apply(this, arguments);
+    };
+
+    _ju.extend(_jp.Connectors.svg.Bezier, [ _jp.Connectors.Bezier, _jp.ConnectorRenderers.svg]);
+
+    _jp.Connectors.svg.Straight = function() {
+        _jp.Connectors.Straight.apply(this, arguments);
+        _jp.ConnectorRenderers.svg.apply(this, arguments);
+    };
+
+    _ju.extend(_jp.Connectors.svg.Straight, [ _jp.Connectors.Straight, _jp.ConnectorRenderers.svg]);
+
+
+    _jp.Connectors.svg.StateMachine = function() {
+        _jp.Connectors.StateMachine.apply(this, arguments);
+        _jp.ConnectorRenderers.svg.apply(this, arguments);
+    };
+
+    _ju.extend(_jp.Connectors.svg.StateMachine, [ _jp.Connectors.StateMachine, _jp.ConnectorRenderers.svg]);
+
+
+// ------------------------------------------ / Connectors -----------------------------------------
+
     /*
      * SVG Image Endpoint is the default image endpoint.
      */
@@ -14357,13 +14295,9 @@
 }).call(typeof window !== 'undefined' ? window : this);
 
 /*
- * jsPlumb Community Edition
- *
- * Provides a way to visually connect elements on an HTML page, using SVG.
- * 
  * This file contains the 'vanilla' adapter - having no external dependencies other than bundled libs.
  *
- * Copyright (c) 2010 - 2017 jsPlumb (hello@jsplumbtoolkit.com)
+ * Copyright (c) 2010 - 2018 jsPlumb (hello@jsplumbtoolkit.com)
  * 
  * https://jsplumbtoolkit.com
  * https://github.com/jsplumb/jsplumb
