@@ -1888,13 +1888,13 @@ var currentEndpoint;
             }
         }
         this.moveBy = function(dx, dy, e) {
-            if (isCurrentEndpoint)
-            {
-                currentEndpoint=e.target.parentElement;
-                isCurrentEndpoint=false;
-            }
             if (currentSvgPath.children[1])
             {
+                if (isCurrentEndpoint)
+                {
+                    currentEndpoint=e.target.parentElement;
+                    isCurrentEndpoint=false;
+                }
                 var poss=this.arrowDirection(currentSvgPath);
                 if (poss=="Top")
                 {
