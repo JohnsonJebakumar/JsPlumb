@@ -63,7 +63,6 @@
  *
  */
 var currentSvgPath;
-var isCurrentEndpoint;
 var currentEndpoint;
 (function() {
 
@@ -1488,6 +1487,7 @@ var currentEndpoint;
             isConstrained = false,
             useGhostProxy = params.ghostProxy === true ? TRUE : params.ghostProxy && typeof params.ghostProxy === "function" ? params.ghostProxy : FALSE,
             ghostProxy = function(el) { return el.cloneNode(true); };
+        currentEndpoint=dragEl;
 
         var snapThreshold = params.snapThreshold,
             _snap = function(pos, gridX, gridY, thresholdX, thresholdY) {
@@ -1624,7 +1624,6 @@ var currentEndpoint;
             matchingDroppables = [], intersectingDroppables = [];
 
         this.downListener = function(e) {
-            isCurrentEndpoint=true;
             var isNotRightClick = this.rightButtonCanDrag || (e.which !== 3 && e.button !== 2);
             if (isNotRightClick && this.isEnabled() && this.canDrag()) {
                 var _f =  _testFilter(e) && _inputFilter(e, this.el, this.k);
@@ -1890,11 +1889,6 @@ var currentEndpoint;
         this.moveBy = function(dx, dy, e) {
             if (currentSvgPath.children[1])
             {
-                if (isCurrentEndpoint)
-                {
-                    currentEndpoint=e.target.parentElement;
-                    isCurrentEndpoint=false;
-                }
                 var poss=this.arrowDirection(currentSvgPath);
                 if (poss=="Top")
                 {
