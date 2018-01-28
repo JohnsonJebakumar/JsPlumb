@@ -1890,6 +1890,7 @@ var currentEndpoint;
             if (currentSvgPath.children[1])
             {
                 var poss=this.arrowDirection(currentSvgPath);
+                
                 if (poss=="Top")
                 {
                     currentEndpoint.style.left="0px";
@@ -1910,7 +1911,6 @@ var currentEndpoint;
                     currentEndpoint.style.top="0px";
                     currentEndpoint.style.left="10px";
                 }
-                console.log("currentSvgPath",currentEndpoint,isCurrentEndpoint);
             }
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
@@ -2908,6 +2908,7 @@ var currentEndpoint;
                 try {
                     if (newFunction != null) {
                         r = newFunction.apply(this, arguments);
+                        console.log("newFunction",newFunction);
                     }
                 } catch (e) {
                     root.jsPlumbUtil.log("jsPlumb function failed : " + e);
@@ -2915,6 +2916,7 @@ var currentEndpoint;
                 if ((wrappedFunction != null) && (returnOnThisValue == null || (r !== returnOnThisValue))) {
                     try {
                         r = wrappedFunction.apply(this, arguments);
+                        console.log("wrappedFunction",wrappedFunction);
                     } catch (e) {
                         root.jsPlumbUtil.log("wrapped function failed : " + e);
                     }
