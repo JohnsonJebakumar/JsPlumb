@@ -7916,13 +7916,14 @@ var currentEndpoint;
                         var aae = this._jsPlumb.instance.deriveEndpointAndAnchorSpec(this.connectionType);
                         if (aae.endpoints[1]) {
                             endpointToFloat = aae.endpoints[1];
+                            console.log("endpointToFloat",endpointToFloat);
                         }
                     }
                     var centerAnchor = this._jsPlumb.instance.makeAnchor("Center");
                     centerAnchor.isFloating = true;
                     this._jsPlumb.floatingEndpoint = _makeFloatingEndpoint(this.getPaintStyle(), centerAnchor, endpointToFloat, this.canvas, placeholderInfo.element, _jsPlumb, _newEndpoint, this.scope);
                     console.log("this._jsPlumb.floatingEndpoint",this._jsPlumb.floatingEndpoint);
-                    //this._jsPlumb.floatingEndpoint.style.display="none";
+                    this._jsPlumb.floatingEndpoint.canvas.style.display="none";
                     var _savedAnchor = this._jsPlumb.floatingEndpoint.anchor;
 
 
