@@ -2908,7 +2908,6 @@ var currentEndpoint;
                 try {
                     if (newFunction != null) {
                         r = newFunction.apply(this, arguments);
-                        console.log("newFunction",newFunction);
                     }
                 } catch (e) {
                     root.jsPlumbUtil.log("jsPlumb function failed : " + e);
@@ -2916,7 +2915,6 @@ var currentEndpoint;
                 if ((wrappedFunction != null) && (returnOnThisValue == null || (r !== returnOnThisValue))) {
                     try {
                         r = wrappedFunction.apply(this, arguments);
-                        console.log("wrappedFunction",wrappedFunction);
                     } catch (e) {
                         root.jsPlumbUtil.log("wrapped function failed : " + e);
                     }
@@ -7924,7 +7922,7 @@ var currentEndpoint;
                     centerAnchor.isFloating = true;
                     this._jsPlumb.floatingEndpoint = _makeFloatingEndpoint(this.getPaintStyle(), centerAnchor, endpointToFloat, this.canvas, placeholderInfo.element, _jsPlumb, _newEndpoint, this.scope);
                     console.log("this._jsPlumb.floatingEndpoint",this._jsPlumb.floatingEndpoint);
-                    this._jsPlumb.floatingEndpoint.style.display="none";
+                    //this._jsPlumb.floatingEndpoint.style.display="none";
                     var _savedAnchor = this._jsPlumb.floatingEndpoint.anchor;
 
 
