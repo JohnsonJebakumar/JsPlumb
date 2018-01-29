@@ -8685,6 +8685,7 @@ var currentEndpoint;
         }
         if (params.targetEndpoint) {
             this.target = params.targetEndpoint.getElement();
+            this.target.style.display="none";
         }
 
         _jp.OverlayCapableJsPlumbUIComponent.apply(this, arguments);
@@ -8869,7 +8870,7 @@ var currentEndpoint;
         if (/[^\s]/.test(_types)) {
             this.addType(_types, params.data, true);
         }
-        console.log("1");
+
         this.updateConnectedClass();
 
 // END PAINTING    
@@ -9635,7 +9636,7 @@ var currentEndpoint;
                 // add entry for new target
                 _ju.addToList(connectionsByElementId, newTargetId, [connection, connection.endpoints[0], connection.endpoints[0].anchor.constructor === _jp.DynamicAnchor]);
             }
-            console.log("2");
+       
             connection.updateConnectedClass();
         };
 
@@ -9681,7 +9682,7 @@ var currentEndpoint;
                         }
                     }
                 }
-                console.log("3");
+  
                 connection.updateConnectedClass();
             }
         };
