@@ -1688,6 +1688,7 @@ var currentEndpoint;
         }.bind(this);
 
         this.upListener = function(e) {
+            currentSvgPath=undefined;
             if (downAt) {
                 downAt = null;
                 this.params.unbind(document, "mousemove", this.moveListener);
@@ -1890,25 +1891,28 @@ var currentEndpoint;
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
                 cPos = constrain(desiredLoc, dragEl);
-            if (currentSvgPath.children[1])
+            if (currentSvgPath)
             {
-                var poss=this.arrowDirection(currentSvgPath);
-                
-                if (poss=="Top")
+                if (currentSvgPath.children[1])
                 {
-                    cPos[1]+=2;
-                }
-                else if (poss=="Bottom")
-                {
-                    cPos[1]-=2;
-                }
-                else if (poss=="Right")
-                {
-                    cPos[0]-=2;
-                }
-                else if (poss=="Left")
-                {
-                    cPos[0]+=2;
+                    var poss=this.arrowDirection(currentSvgPath);
+
+                    if (poss=="Top")
+                    {
+                        cPos[1]+=2;
+                    }
+                    else if (poss=="Bottom")
+                    {
+                        cPos[1]-=2;
+                    }
+                    else if (poss=="Right")
+                    {
+                        cPos[0]-=2;
+                    }
+                    else if (poss=="Left")
+                    {
+                        cPos[0]+=2;
+                    }
                 }
             }
             
