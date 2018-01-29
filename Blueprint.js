@@ -8657,6 +8657,7 @@ var currentEndpoint;
                     _jsPlumb.removeClass(element, _jsPlumb.connectedClass);
                 }
                 else {
+                    console.log("element",element);
                     _jsPlumb.addClass(element, _jsPlumb.connectedClass);
                 }
             }
