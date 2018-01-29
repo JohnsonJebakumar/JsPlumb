@@ -1887,34 +1887,31 @@ var currentEndpoint;
             }
         }
         this.moveBy = function(dx, dy, e) {
+            intersectingDroppables.length = 0;
+            var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
+                cPos = constrain(desiredLoc, dragEl);
             if (currentSvgPath.children[1])
             {
                 var poss=this.arrowDirection(currentSvgPath);
                 
                 if (poss=="Top")
                 {
-                    currentEndpoint.style.left="0px";
-                    currentEndpoint.style.top="10px";
+                    cPos[1]+=10;
                 }
                 else if (poss=="Bottom")
                 {
-                    currentEndpoint.style.left="0px";
-                    currentEndpoint.style.top="-10px";
+                    cPos[1]-=10;
                 }
                 else if (poss=="Right")
                 {
-                    currentEndpoint.style.top="0px";
-                    currentEndpoint.style.left="-10px";
+                    cPos[0]-=10;
                 }
                 else if (poss=="Left")
                 {
-                    currentEndpoint.style.top="0px";
-                    currentEndpoint.style.left="10px";
+                    cPos[0]+=10;
                 }
             }
-            intersectingDroppables.length = 0;
-            var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
-                cPos = constrain(desiredLoc, dragEl);
+            
 
             if (useGhostProxy(this.el)) {
                 if (desiredLoc[0] != cPos[0] || desiredLoc[1] != cPos[1]) {
