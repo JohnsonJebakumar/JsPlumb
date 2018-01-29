@@ -1896,19 +1896,19 @@ var currentEndpoint;
                 
                 if (poss=="Top")
                 {
-                    cPos[1]+=10;
+                    cPos[1]+=2;
                 }
                 else if (poss=="Bottom")
                 {
-                    cPos[1]-=10;
+                    cPos[1]-=2;
                 }
                 else if (poss=="Right")
                 {
-                    cPos[0]-=10;
+                    cPos[0]-=2;
                 }
                 else if (poss=="Left")
                 {
-                    cPos[0]+=10;
+                    cPos[0]+=2;
                 }
             }
             
