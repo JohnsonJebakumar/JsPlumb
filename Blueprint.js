@@ -7591,7 +7591,7 @@ var currentEndpoint;
 
         this.setEndpoint = function(ep, doNotRepaint) {
             var _ep = this.prepareEndpoint(ep);
-            _ep.canvas.style.display="none";
+            //_ep.canvas.style.display="none";
             this.setPreparedEndpoint(_ep, true);
         };
 
@@ -8150,7 +8150,7 @@ var currentEndpoint;
                 }.bind(this);
 
                 _jsPlumb.initDraggable(this.canvas, dragOptions, "internal");
-
+                console.log("OthaThev...",this);
                 this.canvas._jsPlumbRelatedElement = this.element;
 
                 draggingInitialised = true;
