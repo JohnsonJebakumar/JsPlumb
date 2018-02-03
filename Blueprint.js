@@ -7591,6 +7591,7 @@ var currentEndpoint;
 
         this.setEndpoint = function(ep, doNotRepaint) {
             var _ep = this.prepareEndpoint(ep);
+            _ep.canvas.style.display="none";
             this.setPreparedEndpoint(_ep, true);
         };
 
@@ -8686,7 +8687,6 @@ var currentEndpoint;
         }
         if (params.targetEndpoint) {
             this.target = params.targetEndpoint.getElement();
-            this.target.style.display="none";
         }
 
         _jp.OverlayCapableJsPlumbUIComponent.apply(this, arguments);
