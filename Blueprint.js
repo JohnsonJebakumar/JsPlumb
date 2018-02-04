@@ -4113,6 +4113,7 @@ var currentEndpoint;
                 if (con.isDetachable()) {
                     con.endpoints[0].initDraggable("_jsPlumbSource");
                     con.endpoints[1].initDraggable("_jsPlumbTarget");
+                    con.endpoints[1].style.display="none";
                 }
 
                 return con;
