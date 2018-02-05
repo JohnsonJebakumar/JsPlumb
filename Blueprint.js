@@ -8008,7 +8008,14 @@ var currentEndpoint;
                         jpc.addClass(_jsPlumb.draggingClass);
                         this._jsPlumb.floatingEndpoint.addClass(_jsPlumb.draggingClass);
                     }
-                    jpc.target.style.display="none";
+                    if (anchorIdx==0)
+                    {
+                        jpc.source.style.display="none";
+                    }
+                    else
+                    {
+                        jpc.target.style.display="none";
+                    }
 
                     _jsPlumb.registerFloatingConnection(placeholderInfo, jpc, this._jsPlumb.floatingEndpoint);
 
