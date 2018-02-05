@@ -4113,7 +4113,7 @@ var currentEndpoint;
                 if (con.isDetachable()) {
                     con.endpoints[0].initDraggable("_jsPlumbSource");
                     con.endpoints[1].initDraggable("_jsPlumbTarget");
-                    con.endpoints[1].style.display="none";
+                    //con.endpoints[1].style.display="none";
                 }
 
                 return con;
@@ -8151,7 +8151,6 @@ var currentEndpoint;
                 }.bind(this);
 
                 _jsPlumb.initDraggable(this.canvas, dragOptions, "internal");
-                console.log("OthaThev...",this);
                 this.canvas._jsPlumbRelatedElement = this.element;
 
                 draggingInitialised = true;
