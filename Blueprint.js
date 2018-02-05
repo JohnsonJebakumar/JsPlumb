@@ -7950,6 +7950,7 @@ var currentEndpoint;
                             scope:params.scope,
                             data:beforeDrag
                         });
+                        jpc.target.style.display="none";
                         jpc.pending = true;
                         jpc.addClass(_jsPlumb.draggingClass);
                         this._jsPlumb.floatingEndpoint.addClass(_jsPlumb.draggingClass);
