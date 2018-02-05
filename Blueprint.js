@@ -8067,6 +8067,7 @@ var currentEndpoint;
                                 jpc.endpoints[idx] = jpc.suspendedEndpoint;
                                 // if the connection should be reattached, or the other endpoint refuses detach, then
                                 // reset the connection to its original state
+                                jpc.endpoints[idx].reattachConnections=true;
                                 if (jpc.isReattach() || jpc._forceReattach || jpc._forceDetach || !_jsPlumb.deleteConnection(jpc, {originalEvent: originalEvent})) {
 
                                     jpc.setHover(false);
