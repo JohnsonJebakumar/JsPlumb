@@ -4327,14 +4327,7 @@
                 var id = _getId(p.source), e = _newEndpoint(p, id);
 
                 // ensure element is managed.
-                if (elemOffset)
-                {
-                    var myOffset = elemOffset;
-                }
-                else
-                {
-                    var myOffset = _manage(id, p.source).info.o;
-                }
+                var myOffset = elemOffset || _manage(id, p.source).info.o;
                  _ju.addToList(endpointsByElement, id, e);
 
                 if (!_suspendDrawing) {
