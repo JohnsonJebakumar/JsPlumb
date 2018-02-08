@@ -4310,7 +4310,7 @@
 // --------------------------- jsPlumbInstance public API ---------------------------------------------------------
 
 
-        this.addEndpoint = function (el, params, referenceParams) {
+        this.addEndpoint = function (el, params, referenceParams,elemOffset) {
             referenceParams = referenceParams || {};
             var p = jsPlumb.extend({}, referenceParams);
             jsPlumb.extend(p, params);
@@ -4327,6 +4327,10 @@
                 var id = _getId(p.source), e = _newEndpoint(p, id);
 
                 // ensure element is managed.
+                if (elemOffset)
+                {
+                    var myOffset = elemOffset;
+                }
                 var myOffset = _manage(id, p.source).info.o;
                 _ju.addToList(endpointsByElement, id, e);
 
