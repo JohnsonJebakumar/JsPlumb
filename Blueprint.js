@@ -62,8 +62,7 @@
  *
  *
  */
-var currentSvgPath;
-var currentEndpoint;
+
 (function() {
 
     var root = this;
@@ -1304,20 +1303,20 @@ var currentEndpoint;
 
     var _vanquish = function(list, item) {
         var idx = list.indexOf(item);
-        if (idx != -1) list.splice(idx, 1);
+        if (idx !== -1) list.splice(idx, 1);
     };
 
     var _difference = function(l1, l2) {
         var d = [];
         for (var i = 0; i < l1.length; i++) {
-            if (l2.indexOf(l1[i]) == -1)
+            if (l2.indexOf(l1[i]) === -1)
                 d.push(l1[i]);
         }
         return d;
     };
 
     var _isString = function(f) {
-        return f == null ? false : (typeof f === "string" || f.constructor == String);
+        return f == null ? false : (typeof f === "string" || f.constructor === String);
     };
 
     var getOffsetRect = function (elem) {
@@ -1350,7 +1349,7 @@ var currentEndpoint;
 
     var iev = (function() {
             var rv = -1;
-            if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.appName === 'Microsoft Internet Explorer') {
                 var ua = navigator.userAgent,
                     re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
                 if (re.exec(ua) != null)
@@ -1361,7 +1360,7 @@ var currentEndpoint;
         DEFAULT_GRID_X = 10,
         DEFAULT_GRID_Y = 10,
         isIELT9 = iev > -1 && iev < 9,
-        isIE9 = iev == 9,
+        isIE9 = iev === 9,
         _pl = function(e) {
             if (isIELT9) {
                 return [ e.clientX + document.documentElement.scrollLeft, e.clientY + document.documentElement.scrollTop ];
@@ -1388,7 +1387,8 @@ var currentEndpoint;
             active : "katavorio-drag-active",   // droppables that are targets of a currently dragged element
             hover : "katavorio-drag-hover",     // droppables over which a matching drag element is hovering
             noSelect : "katavorio-drag-no-select", // added to the body to provide a hook to suppress text selection
-            ghostProxy:"katavorio-ghost-proxy"  // added to a ghost proxy element in use when a drag has exited the bounds of its parent.
+            ghostProxy:"katavorio-ghost-proxy",  // added to a ghost proxy element in use when a drag has exited the bounds of its parent.
+            clonedDrag:"katavorio-clone-drag"     // added to a node that is a clone of an element created at the start of a drag
         },
         _defaultScope = "katavorio-drag-scope",
         _events = [ "stop", "start", "drag", "drop", "over", "out", "beforeStart" ],
@@ -1487,7 +1487,6 @@ var currentEndpoint;
             isConstrained = false,
             useGhostProxy = params.ghostProxy === true ? TRUE : params.ghostProxy && typeof params.ghostProxy === "function" ? params.ghostProxy : FALSE,
             ghostProxy = function(el) { return el.cloneNode(true); };
-        currentEndpoint=dragEl;
 
         var snapThreshold = params.snapThreshold,
             _snap = function(pos, gridX, gridY, thresholdX, thresholdY) {
@@ -1639,6 +1638,7 @@ var currentEndpoint;
                         var b = getOffsetRect(this.el);
                         dragEl.style.left = b.left + "px";
                         dragEl.style.top = b.top + "px";
+                        dragEl.className = _classes.clonedDrag;
                         document.body.appendChild(dragEl);
                     }
                     consumeStartEvent && _consume(e);
@@ -1688,7 +1688,6 @@ var currentEndpoint;
         }.bind(this);
 
         this.upListener = function(e) {
-            currentSvgPath=undefined;
             if (downAt) {
                 downAt = null;
                 this.params.unbind(document, "mousemove", this.moveListener);
@@ -1842,83 +1841,13 @@ var currentEndpoint;
                 }
             }
         };
-        this.arrowDirection=function(svg)
-        {
-            var arrowPath=svg.children[1].getAttribute("d");
-            var splitArrowPath=arrowPath.split(" L");
-            splitArrowPath[0]=splitArrowPath[0].split("M")[1];
-            var checkArray=[];
-            for (var i=0;i<3;i+=2)
-            {
-                var a=splitArrowPath[i].split(",");
-                var b=splitArrowPath[i+1].split(",");
-                for (var j=0;j<2;j++)
-                {
-                    if (parseInt(a[j])<parseInt(b[j]))
-                    {
-                        checkArray.push("Increase");
-                    }
-                    else
-                    {
-                        checkArray.push("Decrease");
-                    }
-                }
-            }
-            if (checkArray[0]=="Increase")
-            {
-                if (checkArray[1]=="Decrease")
-                {
-                    if (checkArray[2]=="Increase")
-                    {
-                        return "Left";
-                    }
-                    else
-                    {
-                        return "Bottom";
-                    }
-                }
-                else
-                {
-                    return "Top";
-                }
-            }
-            else
-            {
-                return "Right";
-            }
-        }
         this.moveBy = function(dx, dy, e) {
             intersectingDroppables.length = 0;
             var desiredLoc = this.toGrid([posAtDown[0] + dx, posAtDown[1] + dy]),
                 cPos = constrain(desiredLoc, dragEl);
-            if (currentSvgPath)
-            {
-                if (currentSvgPath.children[1])
-                {
-                    var poss=this.arrowDirection(currentSvgPath);
-
-                    if (poss=="Top")
-                    {
-                        cPos[1]+=2;
-                    }
-                    else if (poss=="Bottom")
-                    {
-                        cPos[1]-=2;
-                    }
-                    else if (poss=="Right")
-                    {
-                        cPos[0]-=2;
-                    }
-                    else if (poss=="Left")
-                    {
-                        cPos[0]+=2;
-                    }
-                }
-            }
-            
 
             if (useGhostProxy(this.el)) {
-                if (desiredLoc[0] != cPos[0] || desiredLoc[1] != cPos[1]) {
+                if (desiredLoc[0] !== cPos[0] || desiredLoc[1] !== cPos[1]) {
                     if (!isConstrained) {
                         var gp = ghostProxy(this.el);
                         params.addClass(gp, _classes.ghostProxy);
@@ -1946,7 +1875,7 @@ var currentEndpoint;
             this.params.setPosition(dragEl, cPos);
             for (var i = 0; i < matchingDroppables.length; i++) {
                 var r2 = { x:matchingDroppables[i].pagePosition[0], y:matchingDroppables[i].pagePosition[1], w:matchingDroppables[i].size[0], h:matchingDroppables[i].size[1]};
-                if (this.params.intersects(pageRect, r2) && (_multipleDrop || focusDropElement == null || focusDropElement == matchingDroppables[i].el) && matchingDroppables[i].canDrop(this)) {
+                if (this.params.intersects(pageRect, r2) && (_multipleDrop || focusDropElement == null || focusDropElement === matchingDroppables[i].el) && matchingDroppables[i].canDrop(this)) {
                     if (!focusDropElement) focusDropElement = matchingDroppables[i].el;
                     intersectingDroppables.push(matchingDroppables[i]);
                     matchingDroppables[i].setHover(this, true, e);
@@ -2013,7 +1942,7 @@ var currentEndpoint;
 
         this.setHover = function(drag, val, e) {
             // if turning off hover but this was not the drag that caused the hover, ignore.
-            if (val || this.el._katavorioDragHover == null || this.el._katavorioDragHover == drag.el._katavorio) {
+            if (val || this.el._katavorioDragHover == null || this.el._katavorioDragHover === drag.el._katavorio) {
                 this.params[val ? "addClass" : "removeClass"](this.el, this._hoverClass);
                 //this.el._katavorioDragHover = val ? drag.el._katavorio : null;
                 this.el._katavorioDragHover = val ? drag.el._katavorio : null;
@@ -2039,7 +1968,7 @@ var currentEndpoint;
 
     var _uuid = function() {
         return ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
             return v.toString(16);
         }));
     };
@@ -2050,7 +1979,7 @@ var currentEndpoint;
 
     var _gel = function(el) {
         if (el == null) return null;
-        el = (typeof el === "string" || el.constructor == String)  ? document.getElementById(el) : el;
+        el = (typeof el === "string" || el.constructor === String)  ? document.getElementById(el) : el;
         if (el == null) return null;
         el._katavorio = el._katavorio || _uuid();
         return el;
@@ -2078,7 +2007,7 @@ var currentEndpoint;
                     for(var i = 0; i < _obj.scopes.length; i++) {
                         if (map[_obj.scopes[i]]) {
                             var idx = katavorioParams.indexOf(map[_obj.scopes[i]], _obj);
-                            if (idx != -1) {
+                            if (idx !== -1) {
                                 map[_obj.scopes[i]].splice(idx, 1);
                                 c++;
                             }
@@ -2425,7 +2354,7 @@ var currentEndpoint;
                 posses.push(_processOneSpec(el, arguments[i]));
             }
 
-            return posses.length == 1 ? posses[0] : posses;
+            return posses.length === 1 ? posses[0] : posses;
         };
 
         /**
@@ -2459,7 +2388,7 @@ var currentEndpoint;
                 }
             }.bind(this));
 
-            return posses.length == 1 ? posses[0] : posses;
+            return posses.length === 1 ? posses[0] : posses;
         };
 
         /**
@@ -2522,7 +2451,7 @@ var currentEndpoint;
 
     };
 
-    root.Katavorio.version = "0.19.3";
+    root.Katavorio.version = "0.23.0";
 
     if (typeof exports !== "undefined") {
         exports.Katavorio = root.Katavorio;
@@ -3130,7 +3059,7 @@ var currentEndpoint;
  *
  * Dual licensed under the MIT and GPL2 licenses.
  */
-(function () {
+;(function () {
 
     "use strict";
 
@@ -3586,7 +3515,7 @@ var currentEndpoint;
 
     var jsPlumbInstance = root.jsPlumbInstance = function (_defaults) {
 
-        this.version = "2.6.0";
+        this.version = "2.6.6";
 
         if (_defaults) {
             jsPlumb.extend(this.Defaults, _defaults);
@@ -3885,7 +3814,7 @@ var currentEndpoint;
                                     // differs from getUIPosition so much
                                     var ui = _currentInstance.getUIPosition(arguments, _currentInstance.getZoom());
                                     if (ui != null) {
-                                        _draw(element, ui, null, true);
+                                        //_draw(element, ui, null, true);
                                         if (_started) {
                                             _currentInstance.addClass(element, "jtk-dragged");
                                         }
@@ -3903,7 +3832,7 @@ var currentEndpoint;
                                                 el:_e[2].el,
                                                 pos:[_e[1].left, _e[1].top]
                                             }]);
-                                            _draw(_e[2].el, uip);
+                                            //_draw(_e[2].el, uip);
                                         }
                                         _currentInstance.removeClass(_e[0], "jtk-dragged");
                                         _currentInstance.select({source: _e[2].el}).removeClass(_currentInstance.elementDraggingClass + " " + _currentInstance.sourceElementDraggingClass, true);
@@ -4075,6 +4004,14 @@ var currentEndpoint;
                             } else {
                                 newEndpoint.setDeleteOnEmpty(true);
                             }
+
+                            //
+                            // copy in connector overlays if present on the source definition.
+                            //
+                            if (idx === 0 && tep.def.connectorOverlays) {
+                                _p.overlays = _p.overlays || [];
+                                Array.prototype.push.apply(_p.overlays, tep.def.connectorOverlays);
+                            }
                         }
                     }
                 };
@@ -4113,7 +4050,6 @@ var currentEndpoint;
                 if (con.isDetachable()) {
                     con.endpoints[0].initDraggable("_jsPlumbSource");
                     con.endpoints[1].initDraggable("_jsPlumbTarget");
-                    //con.endpoints[1].style.display="none";
                 }
 
                 return con;
@@ -6098,13 +6034,15 @@ var currentEndpoint;
             return _currentInstance;
         };
 
-        this.reset = function () {
+        this.reset = function (doNotUnbindInstanceEventListeners) {
             _currentInstance.silently(function() {
                 _hoverSuspended = false;
                 _currentInstance.removeAllGroups();
                 _currentInstance.removeGroupManager();
                 _currentInstance.deleteEveryEndpoint();
-                _currentInstance.unbind();
+                if (!doNotUnbindInstanceEventListeners) {
+                    _currentInstance.unbind();
+                }
                 this.targetEndpointDefinitions = {};
                 this.sourceEndpointDefinitions = {};
                 connections.length = 0;
@@ -7345,7 +7283,7 @@ var currentEndpoint;
  * 
  * Dual licensed under the MIT and GPL2 licenses.
  */
-(function () {
+;(function () {
 
     "use strict";
     var root = this, _jp = root.jsPlumb, _ju = root.jsPlumbUtil;
@@ -7592,7 +7530,6 @@ var currentEndpoint;
 
         this.setEndpoint = function(ep, doNotRepaint) {
             var _ep = this.prepareEndpoint(ep);
-            //_ep.canvas.style.display="none";
             this.setPreparedEndpoint(_ep, true);
         };
 
@@ -7919,13 +7856,11 @@ var currentEndpoint;
                         var aae = this._jsPlumb.instance.deriveEndpointAndAnchorSpec(this.connectionType);
                         if (aae.endpoints[1]) {
                             endpointToFloat = aae.endpoints[1];
-                            console.log("endpointToFloat",endpointToFloat);
                         }
                     }
                     var centerAnchor = this._jsPlumb.instance.makeAnchor("Center");
                     centerAnchor.isFloating = true;
                     this._jsPlumb.floatingEndpoint = _makeFloatingEndpoint(this.getPaintStyle(), centerAnchor, endpointToFloat, this.canvas, placeholderInfo.element, _jsPlumb, _newEndpoint, this.scope);
-                    console.log("this._jsPlumb.floatingEndpoint",this._jsPlumb.floatingEndpoint);
                     this._jsPlumb.floatingEndpoint.canvas.style.display="none";
                     var _savedAnchor = this._jsPlumb.floatingEndpoint.anchor;
 
@@ -7950,7 +7885,6 @@ var currentEndpoint;
                             scope:params.scope,
                             data:beforeDrag
                         });
-                        jpc.target.style.display="none";
                         jpc.pending = true;
                         jpc.addClass(_jsPlumb.draggingClass);
                         this._jsPlumb.floatingEndpoint.addClass(_jsPlumb.draggingClass);
@@ -8161,6 +8095,7 @@ var currentEndpoint;
                 }.bind(this);
 
                 _jsPlumb.initDraggable(this.canvas, dragOptions, "internal");
+
                 this.canvas._jsPlumbRelatedElement = this.element;
 
                 draggingInitialised = true;
@@ -8669,7 +8604,6 @@ var currentEndpoint;
                     _jsPlumb.removeClass(element, _jsPlumb.connectedClass);
                 }
                 else {
-                    console.log("element",element);
                     _jsPlumb.addClass(element, _jsPlumb.connectedClass);
                 }
             }
@@ -9054,7 +8988,7 @@ var currentEndpoint;
             return connector;
         },
         setPreparedConnector: function(connector, doNotRepaint, doNotChangeListenerComponent, typeId) {
-            currentSvgPath=connector.canvas;
+
             if (this.connector !== connector) {
 
                 var previous, previousClasses = "";
@@ -9647,7 +9581,7 @@ var currentEndpoint;
                 // add entry for new target
                 _ju.addToList(connectionsByElementId, newTargetId, [connection, connection.endpoints[0], connection.endpoints[0].anchor.constructor === _jp.DynamicAnchor]);
             }
-       
+
             connection.updateConnectedClass();
         };
 
@@ -9693,7 +9627,7 @@ var currentEndpoint;
                         }
                     }
                 }
-  
+
                 connection.updateConnectedClass();
             }
         };
@@ -11128,7 +11062,8 @@ var currentEndpoint;
                 perpendicular: oProduct === 0,
                 orthogonal: oProduct === 1,
                 sourceAxis: so[0] === 0 ? "y" : "x",
-                points: [x, y, w, h, sx, sy, tx, ty ]
+                points: [x, y, w, h, sx, sy, tx, ty ],
+                stubs:[sourceStub, targetStub]
             };
             result.anchorOrientation = result.opposite ? "opposite" : result.orthogonal ? "orthogonal" : "perpendicular";
             return result;
@@ -13128,19 +13063,19 @@ var currentEndpoint;
                 addSegment(segments, stubs[0], stubs[1], paintInfo);
 
                 // if its a loopback and we should treat it differently.
-                if (false && params.sourcePos[0] === params.targetPos[0] && params.sourcePos[1] === params.targetPos[1]) {
-
-                    // we use loopbackRadius here, as statemachine connectors do.
-                    // so we go radius to the left from stubs[0], then upwards by 2*radius, to the right by 2*radius,
-                    // down by 2*radius, left by radius.
-                    addSegment(segments, stubs[0] - loopbackRadius, stubs[1], paintInfo);
-                    addSegment(segments, stubs[0] - loopbackRadius, stubs[1] - (2 * loopbackRadius), paintInfo);
-                    addSegment(segments, stubs[0] + loopbackRadius, stubs[1] - (2 * loopbackRadius), paintInfo);
-                    addSegment(segments, stubs[0] + loopbackRadius, stubs[1], paintInfo);
-                    addSegment(segments, stubs[0], stubs[1], paintInfo);
-
-                }
-                else {
+                // if (false && params.sourcePos[0] === params.targetPos[0] && params.sourcePos[1] === params.targetPos[1]) {
+                //
+                //     // we use loopbackRadius here, as statemachine connectors do.
+                //     // so we go radius to the left from stubs[0], then upwards by 2*radius, to the right by 2*radius,
+                //     // down by 2*radius, left by radius.
+                //     addSegment(segments, stubs[0] - loopbackRadius, stubs[1], paintInfo);
+                //     addSegment(segments, stubs[0] - loopbackRadius, stubs[1] - (2 * loopbackRadius), paintInfo);
+                //     addSegment(segments, stubs[0] + loopbackRadius, stubs[1] - (2 * loopbackRadius), paintInfo);
+                //     addSegment(segments, stubs[0] + loopbackRadius, stubs[1], paintInfo);
+                //     addSegment(segments, stubs[0], stubs[1], paintInfo);
+                //
+                // }
+                // else {
 
 
                     var midx = paintInfo.startStubX + ((paintInfo.endStubX - paintInfo.startStubX) * midpoint),
@@ -13285,7 +13220,7 @@ var currentEndpoint;
                     // line to end stub
                     addSegment(segments, stubs[2], stubs[3], paintInfo);
 
-                }
+                //}
 
                 // end stub to end (common)
                 addSegment(segments, paintInfo.tx, paintInfo.ty, paintInfo);
