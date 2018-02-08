@@ -6875,7 +6875,9 @@
         // CONVERTED
         getOffset:function(el, relativeToRoot, container) {
             el = jsPlumb.getElement(el);
-            container = container || this.getContainer();
+            //container = container || this.getContainer();
+            console.log("BlowJob",el,this.getContainer());
+            container=el;
             var out = {
                     left: el.offsetLeft,
                     top: el.offsetTop
@@ -7681,9 +7683,7 @@
             if (!timestamp || this.timestamp !== timestamp) {
 
                 var info = _jsPlumb.updateOffset({ elId: this.elementId, timestamp: timestamp });
-                console.log("check",params,info,this.elementId,this);
-                var elemPos={left:this.element.offsetLeft,top:this.element.offsetTop};
-                var xy = params.offset ? params.offset.o : elemPos;
+                var xy = params.offset ? params.offset.o : info.o;
                 if (xy != null) {
                     var ap = params.anchorPoint, connectorPaintStyle = params.connectorPaintStyle;
                     if (ap == null) {
