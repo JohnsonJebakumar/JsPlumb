@@ -7682,7 +7682,7 @@
             if (!timestamp || this.timestamp !== timestamp) {
 
                 var info = _jsPlumb.updateOffset({ elId: this.elementId, timestamp: timestamp });
-                console.log("check",params,info);
+                console.log("check",params,info,elementId);
                 var xy = params.offset ? params.offset.o : info.o;
                 if (xy != null) {
                     var ap = params.anchorPoint, connectorPaintStyle = params.connectorPaintStyle;
