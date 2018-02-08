@@ -4310,7 +4310,7 @@
 // --------------------------- jsPlumbInstance public API ---------------------------------------------------------
 
 
-        this.addEndpoint = function (el, params, referenceParams,elemOffset) {
+        this.addEndpoint = function (el, params, referenceParams) {
             referenceParams = referenceParams || {};
             var p = jsPlumb.extend({}, referenceParams);
             jsPlumb.extend(p, params);
