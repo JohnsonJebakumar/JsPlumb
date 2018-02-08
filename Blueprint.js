@@ -4310,7 +4310,7 @@
 // --------------------------- jsPlumbInstance public API ---------------------------------------------------------
 
 
-        this.addEndpoint = function (el, params, referenceParams) {
+        this.addEndpoint = function (el, params, referenceParams, elemOffset) {
             referenceParams = referenceParams || {};
             var p = jsPlumb.extend({}, referenceParams);
             jsPlumb.extend(p, params);
@@ -7676,6 +7676,7 @@
         this.setStyle = this.setPaintStyle;
 
         this.paint = function (params) {
+            console.log("fuck",params);
             params = params || {};
             var timestamp = params.timestamp, recalc = !(params.recalc === false);
             if (!timestamp || this.timestamp !== timestamp) {
