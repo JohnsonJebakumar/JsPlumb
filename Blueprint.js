@@ -4333,7 +4333,8 @@
                 if (!_suspendDrawing) {
                     e.paint({
                         anchorLoc: e.anchor.compute({ xy: [ myOffset.left, myOffset.top ], wh: sizes[id], element: e, timestamp: _suspendedAt }),
-                        timestamp: _suspendedAt
+                        timestamp: _suspendedAt,
+                        offset:{o: e.anchor.compute({ xy: [ myOffset.left, myOffset.top ], wh: sizes[id], element: e, timestamp: _suspendedAt })}
                     });
                 }
 
@@ -7676,7 +7677,6 @@
         this.setStyle = this.setPaintStyle;
 
         this.paint = function (params) {
-            console.log("fuck",params);
             params = params || {};
             var timestamp = params.timestamp, recalc = !(params.recalc === false);
             if (!timestamp || this.timestamp !== timestamp) {
