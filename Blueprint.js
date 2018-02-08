@@ -4331,8 +4331,11 @@
                 {
                     var myOffset = elemOffset;
                 }
-                var myOffset = _manage(id, p.source).info.o;
-                _ju.addToList(endpointsByElement, id, e);
+                else
+                {
+                    var myOffset = _manage(id, p.source).info.o;
+                }
+                 _ju.addToList(endpointsByElement, id, e);
 
                 if (!_suspendDrawing) {
                     e.paint({
