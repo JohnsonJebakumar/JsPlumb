@@ -4310,7 +4310,7 @@
 // --------------------------- jsPlumbInstance public API ---------------------------------------------------------
 
 
-        this.addEndpoint = function (el, params, referenceParams, elemOffset) {
+        this.addEndpoint = function (el, params, referenceParams) {
             referenceParams = referenceParams || {};
             var p = jsPlumb.extend({}, referenceParams);
             jsPlumb.extend(p, params);
@@ -4327,14 +4327,13 @@
                 var id = _getId(p.source), e = _newEndpoint(p, id);
 
                 // ensure element is managed.
-                var myOffset = elemOffset || _manage(id, p.source).info.o;
+                var myOffset =_manage(id, p.source).info.o;
                  _ju.addToList(endpointsByElement, id, e);
 
                 if (!_suspendDrawing) {
                     e.paint({
                         anchorLoc: e.anchor.compute({ xy: [ myOffset.left, myOffset.top ], wh: sizes[id], element: e, timestamp: _suspendedAt }),
-                        timestamp: _suspendedAt,
-                        offset:{o:myOffset}
+                        timestamp: _suspendedAt
                     });
                 }
 
@@ -7683,7 +7682,8 @@
 
                 var info = _jsPlumb.updateOffset({ elId: this.elementId, timestamp: timestamp });
                 console.log("check",params,info,this.elementId,this);
-                var xy = params.offset ? params.offset.o : info.o;
+                var elemPos={left:this.element.offsetLeft,top:this.element.offsetTop};
+                var xy = params.offset ? params.offset.o : elemPos;
                 if (xy != null) {
                     var ap = params.anchorPoint, connectorPaintStyle = params.connectorPaintStyle;
                     if (ap == null) {
