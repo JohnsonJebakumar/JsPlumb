@@ -6875,9 +6875,7 @@
         // CONVERTED
         getOffset:function(el, relativeToRoot, container) {
             el = jsPlumb.getElement(el);
-            //container = container || this.getContainer();
-            console.log("BlowJob",el,this.getContainer());
-            container=el;
+            container = container || this.getContainer();
             var out = {
                     left: el.offsetLeft,
                     top: el.offsetTop
