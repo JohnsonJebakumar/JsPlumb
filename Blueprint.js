@@ -3590,7 +3590,7 @@
             });
 
             // set container.
-            var previousContainer = "";
+            var previousContainer = _container;
             _container = c;
             _containerDelegations.length = 0;
             var eventAliases = {
@@ -3638,13 +3638,19 @@
             }
 
             // managed elements
-            for (var elId in managedElements) {
+            if (managedElements.length)
+            {
+                var el=managedElements[managedElements.length-1].el;
+                previousContainer.removeChild(el);
+                _container.appendChild(el);
+            }
+            /*for (var elId in managedElements) {
                 var el = managedElements[elId].el;
                 if (el.parentNode === previousContainer) {
                     previousContainer.removeChild(el);
                     _container.appendChild(el);
                 }
-            }
+            }*/
 
         };
         this.getContainer = function () {
