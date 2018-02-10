@@ -3590,7 +3590,7 @@
             });
 
             // set container.
-            var previousContainer = _container;
+            var previousContainer = "";
             _container = c;
             _containerDelegations.length = 0;
             var eventAliases = {
