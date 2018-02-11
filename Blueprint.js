@@ -3582,12 +3582,12 @@
             // get container as dom element.
             c = this.getElement(c);
             // move existing connections and endpoints, if any.
-            /*this.select().each(function (conn) {
+            this.select().each(function (conn) {
                 conn.moveParent(c);
             });
             this.selectEndpoints().each(function (ep) {
                 ep.moveParent(c);
-            });*/
+            });
 
             // set container.
             var previousContainer = _container;
@@ -3639,13 +3639,13 @@
 
             // managed elements
             
-            /*for (var elId in managedElements) {
+            for (var elId in managedElements) {
                 var el = managedElements[elId].el;
                 if (el.parentNode === previousContainer) {
                     previousContainer.removeChild(el);
                     _container.appendChild(el);
                 }
-            }*/
+            }
 
         };
         this.getContainer = function () {
@@ -4312,7 +4312,6 @@
 
 
         this.addEndpoint = function (el, params, referenceParams) {
-            this.setContainer(document.getElementById(el).parentNode);
             referenceParams = referenceParams || {};
             var p = jsPlumb.extend({}, referenceParams);
             jsPlumb.extend(p, params);
