@@ -3638,7 +3638,6 @@
             }
 
             // managed elements
-            
             for (var elId in managedElements) {
                 var el = managedElements[elId].el;
                 if (el.parentNode === previousContainer) {
@@ -3815,7 +3814,7 @@
                                     // differs from getUIPosition so much
                                     var ui = _currentInstance.getUIPosition(arguments, _currentInstance.getZoom());
                                     if (ui != null) {
-                                        //_draw(element, ui, null, true);
+                                        _draw(element, ui, null, true);
                                         if (_started) {
                                             _currentInstance.addClass(element, "jtk-dragged");
                                         }
@@ -3833,7 +3832,7 @@
                                                 el:_e[2].el,
                                                 pos:[_e[1].left, _e[1].top]
                                             }]);
-                                            //_draw(_e[2].el, uip);
+                                            _draw(_e[2].el, uip);
                                         }
                                         _currentInstance.removeClass(_e[0], "jtk-dragged");
                                         _currentInstance.select({source: _e[2].el}).removeClass(_currentInstance.elementDraggingClass + " " + _currentInstance.sourceElementDraggingClass, true);
@@ -4328,8 +4327,8 @@
                 var id = _getId(p.source), e = _newEndpoint(p, id);
 
                 // ensure element is managed.
-                var myOffset =_manage(id, p.source).info.o;
-                 _ju.addToList(endpointsByElement, id, e);
+                var myOffset = _manage(id, p.source).info.o;
+                _ju.addToList(endpointsByElement, id, e);
 
                 if (!_suspendDrawing) {
                     e.paint({
@@ -7682,6 +7681,7 @@
             if (!timestamp || this.timestamp !== timestamp) {
 
                 var info = _jsPlumb.updateOffset({ elId: this.elementId, timestamp: timestamp });
+
                 var xy = params.offset ? params.offset.o : info.o;
                 if (xy != null) {
                     var ap = params.anchorPoint, connectorPaintStyle = params.connectorPaintStyle;
@@ -7950,7 +7950,6 @@
                     {
                         jpc.target.style.display="none";
                     }
-
                     _jsPlumb.registerFloatingConnection(placeholderInfo, jpc, this._jsPlumb.floatingEndpoint);
 
                     // // register it and register connection on it.
