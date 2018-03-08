@@ -7861,7 +7861,7 @@
                     var centerAnchor = this._jsPlumb.instance.makeAnchor("Center");
                     centerAnchor.isFloating = true;
                     this._jsPlumb.floatingEndpoint = _makeFloatingEndpoint(this.getPaintStyle(), centerAnchor, endpointToFloat, this.canvas, placeholderInfo.element, _jsPlumb, _newEndpoint, this.scope);
-                    this._jsPlumb.floatingEndpoint.canvas.style.display="none";
+                    this._jsPlumb.floatingEndpoint.canvas.style.zIndex=-10;
                     var _savedAnchor = this._jsPlumb.floatingEndpoint.anchor;
 
 
@@ -7944,11 +7944,11 @@
                     }
                     if (anchorIdx==0)
                     {
-                        jpc.source.style.display="none";
+                        jpc.source.style.zIndex=-10;
                     }
                     else
                     {
-                        jpc.target.style.display="none";
+                        jpc.target.style.zIndex=-10;
                     }
                     _jsPlumb.registerFloatingConnection(placeholderInfo, jpc, this._jsPlumb.floatingEndpoint);
 
