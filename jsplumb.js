@@ -8010,7 +8010,7 @@
                                 // reset the connection to its original state
                                 //jpc.endpoints[idx].reattachConnections=true;
                                 if (jpc.isReattach() || jpc._forceReattach || jpc._forceDetach || !_jsPlumb.deleteConnection(jpc, {originalEvent: originalEvent})) {
-
+                                    _jsPlumb.fire("reattach",true);
                                     jpc.setHover(false);
                                     jpc._forceDetach = null;
                                     jpc._forceReattach = null;
